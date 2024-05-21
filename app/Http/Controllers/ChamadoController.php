@@ -7,26 +7,19 @@ use app\Models\Chamado;
 
 class ChamadoController extends Controller
 {
+
+    public function layout()
+    {
+        return view('layouts.index');
+    }
+    
     public function index()
     {
         $user = auth()->user();
-        $tipoAcesso = $user->tipo;
-
-        switch ($tipoAcesso) {
-            case 1:
-                $chamados = Chamado::all();
-                break;
-            case 0:
-                $chamados = Chamado::where('user_id', $user->id)
-                    ->orWhere('setor_id', $user->setor_id)
-                    ->get();
-                break;
-            default:
-                $chamados = collect();
-                break;
-        }
+        $chamados = Chamado::where('user_id', $user->id)->get();
         return view('chamados.index', ['chamados' => $chamados]);
     }
+
 
     public function create()
     {

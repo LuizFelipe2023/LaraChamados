@@ -22,7 +22,8 @@ class User extends Authenticatable
         'email',
         'password',
         'tipo',
-        'setor_id'
+        'setor_id',
+        'reset_token'
     ];
 
     /**
