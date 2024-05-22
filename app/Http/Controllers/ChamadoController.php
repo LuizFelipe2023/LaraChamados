@@ -15,9 +15,8 @@ class ChamadoController extends Controller
     
     public function index()
     {
-        $user = auth()->user();
-        $chamados = Chamado::where('user_id', $user->id)->get();
-        return view('chamados.index', ['chamados' => $chamados]);
+        
+        return view('chamados.index');
     }
 
 

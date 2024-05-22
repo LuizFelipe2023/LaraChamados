@@ -23,7 +23,10 @@
                 <h2>LaraChamados</h2>
             </div>
         </header>
-
+    </div>
+    <div class="content">
+        @yield('content')
+    </div>
 </body>
 
 </html>
