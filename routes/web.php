@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChamadoController;
+use App\Http\Controllers\AdminController;
 
 
 /*
@@ -34,3 +35,7 @@ Route::put('/chamados/{id}', [ChamadoController::class, 'updateChamado'])->name(
 Route::delete('/chamados/{id}', [ChamadoController::class, 'deleteChamado'])->name('chamados.delete');
 
 
+Route::get('/admin', [AdminController::class, 'adminIndex'])->name('admin.index');
+Route::get('/admin/filter/{status}', [AdminController::class, 'filterByStatus'])->name('admin.filterByStatus');
+Route::post('/admin/accept/{id}', [AdminController::class, 'acceptChamado'])->name('admin.acceptChamado');
+Route::post('/admin/solve/{id}', [AdminController::class, 'solveChamado'])->name('admin.solveChamado');

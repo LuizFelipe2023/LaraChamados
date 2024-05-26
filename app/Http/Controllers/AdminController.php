@@ -13,25 +13,23 @@ class AdminController extends Controller
         return view('admin.index', ['chamados' => $chamados]);
     }
 
-
     public function filterByStatus($status)
     {
-        $chamados = Chamado::where('status', $status)->get();
+        $chamados = Chamado::where('is_resolved', $status)->get();
         return view('admin.index', ['chamados' => $chamados, 'selectedStatus' => $status]);
     }
 
     public function acceptChamado($id)
     {
         try {
-
             $chamado = Chamado::find($id);
 
-            if (!$chamado || $chamado->status !== 0) {
+            if (!$chamado || $chamado->is_resolved !== 0) {
                 return redirect()->back()->with('error', 'Chamado não encontrado ou já aceito.');
             }
 
             $chamado->update([
-                'status' => 1
+                'is_resolved' => 1
             ]);
 
             return redirect()->back()->with('success', 'Chamado Aceito com sucesso');
@@ -45,11 +43,11 @@ class AdminController extends Controller
         try {
             $chamado = Chamado::find($id);
 
-            if (!$chamado || $chamado->status !== 1) {
+            if (!$chamado || $chamado->is_resolved !== 1) {
                 return redirect()->back()->with('error', 'Chamado não encontrado ou não está aceito.');
             }
 
-            $chamado->update(['status' => 2]);
+            $chamado->update(['is_resolved' => 2]);
 
             return redirect()->back()->with('success', 'Chamado marcado como solucionado com sucesso');
         } catch (\Exception $e) {

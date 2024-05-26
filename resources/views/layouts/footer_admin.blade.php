@@ -6,4 +6,4 @@
     <p>Criado por Luiz Felipe Frois Neves - 2024</p>
 </footer>
 
-<link rel="stylesheet" href="{{ asset('css/footer.css') }}">'
+<link rel="stylesheet" href="{{ asset('css/admin_footer.css') }}">'

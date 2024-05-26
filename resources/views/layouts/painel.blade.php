@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/layout.css')}}">
+    <link rel="stylesheet" href="{{asset('css/admin_layout.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Index</title>
+    <title>Painel Administrativo</title>
 </head>
 
 <body>
@@ -18,8 +18,6 @@
             <figcaption>LaraChamados</figcaption>
         </figure>
         <div class="sidebar-content">
-            <a href="{{ route('chamados.index') }}"><i class="fas fa-list"></i> Chamados</a>
-            <a href="{{ route('chamados.create') }}"><i class="fas fa-plus"></i> Criar Chamado</a>
             <a href="{{route('admin.index')}}"><i class="fas fa-cogs"></i> Painel Administrativo</a>
         </div>
     </div>
@@ -38,5 +36,4 @@
     </div>
 
 </body>
-
 </html>
