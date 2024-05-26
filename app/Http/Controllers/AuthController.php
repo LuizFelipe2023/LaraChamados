@@ -20,18 +20,19 @@ class AuthController extends Controller
     public function storeRegister(Request $request)
     {
         try {
-
+            
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
-                'passsword' => 'required|string|confirmed|min:8',
+                'password' => 'required|string|confirmed|min:8',
+                'setor' => 'required|in:Informática,Administrativa,Produção,Logística'
             ]);
 
-            $user =  User::create([
+            $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'password' => $request->password,
-                'tipo' => 0
+                'password' => Hash::make($request->password),
+                'setor' => $request->setor
             ]);
 
             if (!$user) {
@@ -43,6 +44,7 @@ class AuthController extends Controller
             return redirect()->back()->with('error', 'Houve um erro no processo de registro de usuario: ' . $e->getMessage());
         }
     }
+
 
     public function login()
     {
@@ -60,7 +62,7 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
                 if (Auth::user()->tipo == 1) {
-                    return redirect()->route('admin.chamados.index')->with('success', 'Login bem-sucedido');
+                    return redirect()->route('admin.index')->with('success', 'Login bem-sucedido');
                 }
                 return redirect()->route('chamados.index')->with('success', 'Login bem-sucedido');
             } else {

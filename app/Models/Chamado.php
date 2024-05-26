@@ -9,5 +9,10 @@ class Chamado extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo','assunto','user_id','unidade_id','nivel_de_prioridade','status'];
+    protected $fillable = ['titulo','assunto','user_id','user_name','user_setor','nivel_de_prioridade','is_resolved'];
+
+    public function user()
+    {
+           return $this->belongsTo(User::class);
+    }
 }

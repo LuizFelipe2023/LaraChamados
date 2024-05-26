@@ -10,14 +10,14 @@ class AdminController extends Controller
     public function adminIndex()
     {
         $chamados = Chamado::all();
-        return view('admin.chamados.index', ['chamados' => $chamados]);
+        return view('admin.index', ['chamados' => $chamados]);
     }
 
 
     public function filterByStatus($status)
     {
         $chamados = Chamado::where('status', $status)->get();
-        return view('admin.chamados.index', ['chamados' => $chamados, 'selectedStatus' => $status]);
+        return view('admin.index', ['chamados' => $chamados, 'selectedStatus' => $status]);
     }
 
     public function acceptChamado($id)

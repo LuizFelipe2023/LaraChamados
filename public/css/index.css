@@ -17,7 +17,6 @@ body {
 
 h1 {
     margin-bottom: 20px;
-    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -38,9 +37,11 @@ table th,
 table td {
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    text-align: center; /* Centraliza o conteúdo */
 }
 
 table th {
     text-align: left;
     font-weight: bold;
 }
+
