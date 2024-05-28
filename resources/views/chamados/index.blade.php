@@ -36,9 +36,9 @@
                         <td>{{ $chamado->user_name }}</td>
                         <td>{{ $chamado->user_setor }}</td>
                         <td>{{ $chamado->nivel_de_prioridade }}</td>
-                        <td class="row-buttons">
-                            <a href="{{ route('chamados.edit', $chamado->id) }}" class="btn btn-primary mb-2">Editar</a>
-                            <button class="btn btn-danger btn-delete" data-delete-url="{{ route('chamados.delete', $chamado->id) }}">Excluir</button>
+                        <td>
+                            <a href="{{ route('chamados.edit', $chamado->id) }}" class="btn btn-sm btn-primary mb-2">Editar</a>
+                            <button class="btn btn-sm btn-danger btn-delete" data-delete-url="{{ route('chamados.delete', $chamado->id) }}">Excluir</button>
                         </td>
                     </tr>
                     @endforeach
