@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Chamado;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -13,11 +14,19 @@ class AdminController extends Controller
         return view('admin.index', ['chamados' => $chamados]);
     }
 
-    public function filterByStatus($status)
+    public function listarUsuarios()
     {
+        $Users = User::all();
+        return view('admin.user', ['users' => $Users]);
+    }
+
+    public function filterByStatus(Request $request)
+    {
+        $status = $request->input('status');
         $chamados = Chamado::where('is_resolved', $status)->get();
         return view('admin.index', ['chamados' => $chamados, 'selectedStatus' => $status]);
     }
+
 
     public function acceptChamado($id)
     {

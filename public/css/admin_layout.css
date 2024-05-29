@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa; 
+    background-color: #f8f9fa;
 }
 
 .sidebar {
@@ -65,7 +65,7 @@ body {
 
 .sidebar-content a:hover,
 .sidebar-content button:hover {
-    color: #f39c12; 
+    color: #f39c12;
 }
 
 .sidebar-content button i {
@@ -80,10 +80,65 @@ body {
 
 .main-content h2 {
     font-family: 'Roboto', sans-serif;
-    color: #343a40; 
+    color: #343a40;
 }
 
-.container-header-fixed #logoutForm {
+.container-header-fixed {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.header-forms {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-forms form {
+    display: flex;
+    align-items: center;
+}
+
+.header-forms label {
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.header-forms select {
+    margin-right: 10px;
+    padding: 5px 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #fff;
+    color: #495057;
+}
+
+.header-forms button {
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.header-forms button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.header-forms button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+#logoutForm button {
+    background-color: #dc3545;
+}
+
+#logoutForm button:hover {
+    background-color: #c82333;
 }

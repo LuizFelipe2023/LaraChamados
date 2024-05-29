@@ -36,6 +36,7 @@ Route::delete('/chamados/{id}', [ChamadoController::class, 'deleteChamado'])->na
 
 
 Route::get('/admin', [AdminController::class, 'adminIndex'])->name('admin.index');
-Route::get('/admin/filter/{status}', [AdminController::class, 'filterByStatus'])->name('admin.filterByStatus');
+Route::get('/admin/filter', [AdminController::class, 'filterByStatus'])->name('admin.filterByStatus');
 Route::post('/admin/accept/{id}', [AdminController::class, 'acceptChamado'])->name('admin.acceptChamado');
 Route::post('/admin/solve/{id}', [AdminController::class, 'solveChamado'])->name('admin.solveChamado');
+Route::get('/admin/users',[AdminController::class,'listarUsuarios'])->name('admin.user');
