@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChamadoController;
 use App\Http\Controllers\AdminController;
-
+use App\Models\Chamado;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +33,11 @@ Route::post('/chamados', [ChamadoController::class, 'storeChamado'])->name('cham
 Route::get('/chamados/{id}/edit', [ChamadoController::class, 'editChamado'])->name('chamados.edit');
 Route::put('/chamados/{id}', [ChamadoController::class, 'updateChamado'])->name('chamados.update');
 Route::delete('/chamados/{id}', [ChamadoController::class, 'deleteChamado'])->name('chamados.delete');
+Route::get('/chamados/{chamado_id}/feedback', [ChamadoController::class, 'feedback'])->name('chamados.feedback');
+Route::put('/chamados/{chamado_id}/feedback/insert', [ChamadoController::class, 'insertFeedback'])->name('chamados.feedback.insert');
+
+
+
 
 
 Route::get('/admin', [AdminController::class, 'adminIndex'])->name('admin.index');

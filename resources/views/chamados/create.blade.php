@@ -23,7 +23,7 @@
                 </div>
                 <div class="form-group">
                     <label for="assunto">Assunto</label>
-                    <textarea name="assunto" id="assunto" rows="4" placeholder="Descreva o assunto do chamado"></textarea>
+                    <textarea name="assunto" id="assunto" class="form-control" rows="4" placeholder="Descreva o assunto do chamado"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="hidden" name = "user_id" value = "{{Auth::user()->id}}">

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Chamado;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Feedback;
+use App\Models\User;
 
 class ChamadoController extends Controller
 {
@@ -12,10 +14,10 @@ class ChamadoController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $chamados = Chamado::where('user_id',$user->id)->get();
+        $chamados = Chamado::where('user_id', $user->id)->get();
         return view('chamados.index', ['chamados' => $chamados]);
     }
-    
+
 
     public function create()
     {
@@ -49,7 +51,6 @@ class ChamadoController extends Controller
                 return redirect()->route('login')->with('error', 'Você precisa estar autenticado para criar um chamado.');
             }
         } catch (\Exception $e) {
-            \Log::error('Erro ao criar chamado: ' . $e->getMessage());
             return redirect()->route('chamados.index')->with('error', 'Houve um erro ao criar um chamado no sistema. Por favor, tente novamente mais tarde.');
         }
     }
@@ -109,6 +110,37 @@ class ChamadoController extends Controller
             return redirect()->back()->with('success', 'Chamado deletado com sucesso');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Houve um erro ao deletar o chamado: ' . $e->getMessage());
+        }
+    }
+
+    public function feedback($chamado_id)
+    {
+        $chamado = Chamado::findOrFail($chamado_id);
+        return view('chamados.feedback', compact('chamado'));
+    }
+
+    public function insertFeedback(Request $request, $chamado_id)
+    {
+        try {
+            $request->validate([
+                'feedback' => 'required|string',
+                'rating' => 'required|integer|min:1|max:5'
+            ]);
+
+            $chamado = Chamado::findOrFail($chamado_id);
+
+            if (!$chamado) {
+                return redirect()->back()->with('error', 'Chamado não encontrado.');
+            }
+
+            $chamado->update([
+                'feedback' => $request->feedback,
+                'rating' => $request->rating
+            ]);
+
+            return redirect()->route('chamados.index')->with('success', 'Feedback inserido com sucesso!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao inserir feedback: ' . $e->getMessage());
         }
     }
 }

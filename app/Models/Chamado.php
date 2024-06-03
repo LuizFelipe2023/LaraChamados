@@ -9,7 +9,7 @@ class Chamado extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['titulo','assunto','user_id','user_name','user_setor','nivel_de_prioridade','is_resolved'];
+    protected $fillable = ['titulo','assunto','user_id','user_name','user_setor','nivel_de_prioridade','is_resolved','feedback','rating'];
 
     public function user()
     {
