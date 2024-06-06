@@ -7,12 +7,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/painel.css')}}">
     <title>Painel Administrativo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .content {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-evenly;
+            flex-direction: column;
+            margin-top: 75px;
+        }
+
+        .text-center {
+            margin-bottom: 25px;
+        }
+
+        .stars {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .stars input.star:checked~label.star:before {
+            content: '\f005';
+            color: #FD4;
+        }
+
+        .stars input.star-5:checked~label.star:before {
+            color: #FD4;
+            text-shadow: 0 0 20px #952;
+        }
+
+        .stars label.star {
+            font-size: 30px;
+            padding: 0;
+            font-family: FontAwesome;
+            cursor: pointer;
+        }
+
+        .stars input.star {
+            display: none;
+        }
+
+        .stars label.star:before {
+            content: '\f006';
+            color: #ccc;
+            font-family: FontAwesome;
+        }
+
+        .stars label.star:hover:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container mt-4">
+    <div class="container mt-2">
         <div class="container table-responsive">
             <label for="status">Filtrar por status:</label>
             <form action="{{ route('admin.filterByStatus') }}" method="GET" class="d-flex align-items-end mb-4">
@@ -60,11 +125,18 @@
                             @endif
                         </td>
                         <td>
-                            @if ($chamado->rating == null)
-                            Ainda não há rating
-                            @else
-                            {{ $chamado->rating }}
-                            @endif
+                            <!-- Exibição das estrelas para o rating -->
+                            <div class="stars" id="rating_{{$chamado->id}}">
+                                @php
+                                $rating = $chamado->rating ?? 0; // Obtém o rating ou define como 0 se não existir
+                                @endphp
+                                @for ($i = 5; $i >= 1; $i--)
+                                @if ($i <= $rating) <span class="fa fa-star checked" style="color: gold;"></span>
+                                    @else
+                                    <span class="fa fa-star" style="color: gold;"></span>
+                                    @endif
+                                    @endfor
+                            </div>
                         </td>
                         <td>
                             @if ($chamado->is_resolved == 0)

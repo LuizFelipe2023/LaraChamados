@@ -73,3 +73,60 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
+.stars {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+input.star:checked ~ label.star:before {
+    content: '\f005';
+    color: #FD4;
+    font-family: FontAwesome;
+}
+
+input.star-5:checked ~ label.star:before {
+    color: #FD4;
+    text-shadow: 0 0 20px #952;
+}
+
+label.star {
+    font-size: 30px;
+    padding: 0;
+    font-family: FontAwesome;
+    cursor: pointer;
+}
+
+input.star {
+    display: none;
+}
+
+input.star:checked ~ label.star:before {
+    content: '\f005';
+    color: #FD4;
+    font-family: FontAwesome;
+}
+
+input.star-5:checked ~ label.star:before {
+    color: #FD4;
+    text-shadow: 0 0 20px #952;
+}
+
+label.star {
+    font-size: 30px;
+    padding: 0;
+    font-family: FontAwesome;
+    cursor: pointer;
+}
+
+label.star:before {
+    content: '\f006';
+    color: #ccc;
+    font-family: FontAwesome;
+}
+
+label.star:hover:before {
+    content: '\f005';
+    color: #FD4;
+    transition: all .25s;
+}

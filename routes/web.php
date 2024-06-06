@@ -47,3 +47,4 @@ Route::get('/admin/filter', [AdminController::class, 'filterByStatus'])->name('a
 Route::post('/admin/accept/{id}', [AdminController::class, 'acceptChamado'])->name('admin.acceptChamado');
 Route::post('/admin/solve/{id}', [AdminController::class, 'solveChamado'])->name('admin.solveChamado');
 Route::get('/admin/users',[AdminController::class,'listarUsuarios'])->name('admin.user');
+Route::get('/admin/graphics', [AdminController::class, 'returnGraphics'])->name('admin.graphics');

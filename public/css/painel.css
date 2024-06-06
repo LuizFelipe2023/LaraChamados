@@ -3,15 +3,25 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     font-family: 'Roboto', sans-serif;
 }
+
+.content {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
 .container {
     margin-top: 200px; 
 }
-.text-center{
+
+.text-center {
     margin-bottom: 25px;
 }
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -53,3 +63,4 @@ body{
         margin-top: 10px;
     }
 }
+

@@ -63,4 +63,13 @@ class AdminController extends Controller
             return redirect()->back()->with('error', 'Houve algum erro ao marcar o chamado como solucionado: ' . $e->getMessage());
         }
     }
+
+    public function returnGraphics()
+    {
+        $aceitos = Chamado::where('is_resolved', 1)->count();
+        $pendentes = Chamado::where('is_resolved', 0)->count();
+        $solucionados = Chamado::where('is_resolved', 2)->count();
+
+        return view('admin.graphics')->with(compact('aceitos', 'pendentes', 'solucionados'));
+    }
 }
