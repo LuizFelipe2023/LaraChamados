@@ -21,10 +21,12 @@ Route::post('/register', [AuthController::class, 'storeRegister'])->name('regist
 Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login_process');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/forgot-password', [AuthController::class, 'showForgotPasswordForm'])->name('password.request');
-Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
-Route::get('/reset-password/{token}/{email}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
-Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+Route::get('password/forgot', [AuthController::class, 'showForgotPasswordForm'])->name('password.forgot');
+Route::post('password/forgot', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}/{email}', [AuthController::class, 'showResetPasswordForm'])->name('password.reset');
+Route::put('password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+
+
 
 
 Route::get('/chamados', [ChamadoController::class, 'index'])->name('chamados.index');

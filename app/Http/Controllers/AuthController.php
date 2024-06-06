@@ -20,7 +20,7 @@ class AuthController extends Controller
     public function storeRegister(Request $request)
     {
         try {
-            
+
             $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
@@ -92,66 +92,51 @@ class AuthController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        try {
-            $request->validate([
-                'email' => 'required|email'
-            ]);
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
 
-            $userExists = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
+        $token = Str::random(60);
 
-            if (!$userExists) {
-                return redirect()->route('login')->with('errors', 'Este Usuario não existe');
-            }
+        // Atualiza o token de redefinição de senha do usuário
+        $user->update([
+            'reset_token' => $token
+        ]);
 
-            $token = Str::random(60);
+        // Notifica o usuário com o token de redefinição de senha
+        Notification::route('mail', $user->email)->notify(new ResetPasswordNotification($token, $request->email));
 
-            $userExists->update([
-                'reset_token' => $token
-            ]);
-
-            Notification::route('mail', $request->email)->notify(new ResetPasswordNotification($token));
-
-            return redirect()->route('login')->with('success', 'Link de redefinição de senha enviado!');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Houve algum erro ao processar a solicitação: ' . $e->getMessage());
-        }
+        return redirect()->route('login')->with('success', 'Link de redefinição de senha enviado!');
     }
-
-    public function showResetPasswordForm($token, $email)
+    public function showResetPasswordForm(Request $request)
     {
-        return view('auth.reset-password', ['token' => $token, 'email' => $email]);
+        $token = $request->token;
+        return view('auth.reset-password', compact('token'));
     }
 
     public function resetPassword(Request $request)
     {
-        try {
-            $request->validate([
-                'token' => 'required',
-                'email' => 'required|email',
-                'password' => 'required|string|confirmed|min:8',
-            ]);
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|confirmed|min:8',
+        ]);
 
+        $user = User::where('email', $request->email)->first();
 
-            $user = User::where('email', $request->email)->first();
-
-
-            if (!$user) {
-                return redirect()->route('password.request')->withErrors('Este usuário não existe');
-            }
-
-
-            if (!Hash::check($request->token, $user->reset_token)) {
-                return redirect()->route('password.request')->withErrors('Token inválido');
-            }
-
-
-            $user->password = Hash::make($request->password);
-            $user->reset_token = null;
-            $user->save();
-
-            return redirect()->route('login')->with('success', 'Senha redefinida com sucesso');
-        } catch (\Exception $e) {
-            return redirect()->back()->withErrors('Houve um erro ao redefinir a senha: ' . $e->getMessage());
+        if (!$user) {
+            return redirect()->route('password.request')->withErrors('Este usuário não existe');
         }
+
+        if ($request->token !== $user->reset_token) {
+            return redirect()->route('password.request')->withErrors('Token inválido');
+        }
+        
+        $user->password = Hash::make($request->password);
+        $user->reset_token = null;
+        $user->save();
+
+        return redirect()->route('login')->with('success', 'Senha redefinida com sucesso');
     }
 }

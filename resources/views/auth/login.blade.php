@@ -28,7 +28,7 @@
                 <button type="submit" class="submit_login">Login</button>
             </form>
             <p>Não tem uma conta? <a href="{{ route('register') }}">Registre-se aqui</a></p>
-            <p>Esqueceu sua senha? <a href="{{ route('password.request') }}">Clique aqui para redefinir</a></p>
+            <p>Esqueceu sua senha? <a href="{{ route('password.forgot') }}">Clique aqui para redefinir</a></p>
         </div>
     </div>
 </body>

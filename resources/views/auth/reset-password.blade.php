@@ -15,11 +15,16 @@
     <div class="container">
         <div class="form-container">
             <h2>Redefinir Senha</h2>
-            <form action="{{ route('reset.password') }}" method="POST">
+            <form action="{{ route('password.update') }}" method="POST">
                 @csrf
+                @method('PUT')
                 <div class="form-group">
-                    <label for="email">Email:</label>
+                    <label for="email">E-mail:</label>
                     <input type="email" name="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="token">Token de Redefinição:</label>
+                    <input type="text" name="token" id="token" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Nova Senha:</label>
