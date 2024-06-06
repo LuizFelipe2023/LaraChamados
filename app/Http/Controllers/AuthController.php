@@ -99,12 +99,10 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         $token = Str::random(60);
 
-        // Atualiza o token de redefinição de senha do usuário
         $user->update([
             'reset_token' => $token
         ]);
 
-        // Notifica o usuário com o token de redefinição de senha
         Notification::route('mail', $user->email)->notify(new ResetPasswordNotification($token, $request->email));
 
         return redirect()->route('login')->with('success', 'Link de redefinição de senha enviado!');
@@ -132,7 +130,7 @@ class AuthController extends Controller
         if ($request->token !== $user->reset_token) {
             return redirect()->route('password.request')->withErrors('Token inválido');
         }
-        
+
         $user->password = Hash::make($request->password);
         $user->reset_token = null;
         $user->save();
