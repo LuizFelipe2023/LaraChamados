@@ -113,11 +113,12 @@ class ChamadoController extends Controller
         }
     }
 
-    public function feedback($chamado_id)
+    public function showFeedbackForm($chamado_id)
     {
         $chamado = Chamado::findOrFail($chamado_id);
         return view('chamados.feedback', compact('chamado'));
     }
+
 
     public function insertFeedback(Request $request, $chamado_id)
     {
@@ -129,10 +130,6 @@ class ChamadoController extends Controller
 
             $chamado = Chamado::findOrFail($chamado_id);
 
-            if (!$chamado) {
-                return redirect()->back()->with('error', 'Chamado não encontrado.');
-            }
-
             $chamado->update([
                 'feedback' => $request->feedback,
                 'rating' => $request->rating
@@ -143,4 +140,5 @@ class ChamadoController extends Controller
             return redirect()->back()->with('error', 'Erro ao inserir feedback: ' . $e->getMessage());
         }
     }
+
 }

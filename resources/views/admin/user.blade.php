@@ -1,6 +1,6 @@
 @extends('layouts.painel')
 @section('content')
-<div class="container mt-4">
+<div class="container mt-2">
     <div class="container table-responsive">
     <h1 class="text-center mb-4">Lista de Usuários</h1>
         <table class="table table-bordered">

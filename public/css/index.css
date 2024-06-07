@@ -53,3 +53,7 @@ body{
         margin-top: 10px;
     }
 }
+.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+}
